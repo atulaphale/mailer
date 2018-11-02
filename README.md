@@ -1,0 +1,2 @@
+# mailer
+mailing micro service
