@@ -27,11 +27,11 @@ public class MailCreation {
         AppProperties testProperties = new AppProperties();
         testProperties.setServerHost("smtp.gmail.com");
         testProperties.setServerPort("587");
-        testProperties.setUserName("atulaphale@gmail.com");
-        testProperties.setPassword("");
-        testProperties.setEnableTLS("false");
-        testProperties.setEnableAuth("false");
-        MailCreation m = new MailCreation(new Mailer(100, "atulaphale@gmail.com", "TEST", "<html><body><p>Hello World</p></body></html>"), testProperties);
+        testProperties.setUserName("XXX@gmail.com");
+        testProperties.setPassword(""); //check password is filled
+        testProperties.setEnableTLS("true");
+        testProperties.setEnableAuth("true");
+        MailCreation m = new MailCreation(new Mailer(100, "XXX@gmail.com", "TEST", "<html><body><p>Hello World</p></body></html>"), testProperties);
         m.prepareAndSendMail();
     }
 

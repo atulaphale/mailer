@@ -21,6 +21,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @Api(value="mailOptions", description="Operations pertaining to mailing application")
+@RequestMapping(path="/api/v1")
 public class MailerController {
 
     @Autowired
@@ -28,9 +29,9 @@ public class MailerController {
 
     private final AtomicLong counter = new AtomicLong();
 
-    @ApiOperation(value = "Get the inference report PDF",response = Iterable.class)
+    @ApiOperation(value = "Send the mail of inference report",response = Iterable.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully printed the application"),
+            @ApiResponse(code = 200, message = "Successfully sent the mail"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
@@ -42,7 +43,6 @@ public class MailerController {
                                               @RequestParam(value="subject") String subject,
                                               @RequestParam(value="body") String body){
         long id = counter.incrementAndGet();
-        //URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/" + id).build().toUri();
         Mailer mail = new Mailer(id, toAddress, subject, body);
         ResponseEntity<String> responseEntity = null;
         try {
@@ -62,7 +62,7 @@ public class MailerController {
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .contentType(MediaType.TEXT_PLAIN)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(responseMessage);
     }
 }
